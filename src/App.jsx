@@ -1,6 +1,7 @@
 // start code
 import { useEffect } from 'react';
 import { useGlobalContext } from './context/GlobalContext';
+import Card from './components/Card';
 
 function App() {
   const { getUsers, users, settingUsers } = useGlobalContext();
@@ -24,7 +25,11 @@ function App() {
           <ul>
             {console.log(users)}
             {users.map((user) => {
-              return <li key={user.id}>{user.firstName}</li>;
+              return (
+                <li key={user.id}>
+                  <Card user={user} />
+                </li>
+              );
             })}
           </ul>
         </div>
