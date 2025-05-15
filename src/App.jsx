@@ -21,6 +21,10 @@ function App() {
     <>
       <main>
         <h1>Lista Utenti</h1>
+        <div className="input-box">
+          <h2>Ricerca Utente</h2>
+          <input type="text" placeholder="Franco" />
+        </div>
         <div>
           <ul>
             {console.log(users)}
