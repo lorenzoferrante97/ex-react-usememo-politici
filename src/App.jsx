@@ -1,9 +1,34 @@
 // start code
+import { useEffect } from 'react';
+import { useGlobalContext } from './context/GlobalContext';
 
 function App() {
+  const { getUsers, users, settingUsers } = useGlobalContext();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const usersRes = await getUsers();
+        settingUsers(usersRes);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
+
   return (
     <>
-      <div></div>
+      <main>
+        <h1>Lista Utenti</h1>
+        <div>
+          <ul>
+            {console.log(users)}
+            {users.map((user) => {
+              return <li key={user.id}>{user.firstName}</li>;
+            })}
+          </ul>
+        </div>
+      </main>
     </>
   );
 }

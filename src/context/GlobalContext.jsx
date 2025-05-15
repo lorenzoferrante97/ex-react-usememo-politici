@@ -18,7 +18,9 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
-  const value = { getUsers, setUsers, users };
+  const settingUsers = (users) => setUsers(users.users);
+
+  const value = { getUsers, setUsers, settingUsers, users };
 
   return <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>;
 };
