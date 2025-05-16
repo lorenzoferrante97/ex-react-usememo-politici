@@ -6,6 +6,8 @@ const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
+  const [searchRes, setSearchRes] = useState([]);
+  const [handleSearch, setHandleSearch] = useState('');
 
   // fetch users
   const getUsers = async () => {
@@ -18,9 +20,13 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
+  // setting users
   const settingUsers = (users) => setUsers(users.users);
 
-  const value = { getUsers, setUsers, settingUsers, users };
+  // handle search
+  const getSearchInput = (e) => setHandleSearch(e.target.value);
+
+  const value = { getUsers, setUsers, settingUsers, getSearchInput, users, searchRes, handleSearch };
 
   return <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>;
 };

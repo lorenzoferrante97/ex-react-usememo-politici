@@ -4,7 +4,7 @@ import { useGlobalContext } from './context/GlobalContext';
 import Card from './components/Card';
 
 function App() {
-  const { getUsers, users, settingUsers } = useGlobalContext();
+  const { getUsers, users, settingUsers, getSearchInput, handleSearch } = useGlobalContext();
 
   useEffect(() => {
     (async () => {
@@ -23,7 +23,7 @@ function App() {
         <h1>Lista Utenti</h1>
         <div className="input-box">
           <h2>Ricerca Utente</h2>
-          <input type="text" placeholder="Franco" />
+          <input value={handleSearch} onChange={(e) => getSearchInput(e)} name="search" type="text" placeholder="Franco" />
         </div>
         <div>
           <ul>
