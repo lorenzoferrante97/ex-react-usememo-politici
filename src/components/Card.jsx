@@ -1,6 +1,10 @@
-export default function Card({ user }) {
+import { memo } from 'react';
+
+export default memo(function Card({ user }) {
   const { firstName, image, address, university } = user;
   const { city } = address;
+
+  console.log('user renderizzato: ', firstName);
 
   return (
     <>
@@ -16,4 +20,4 @@ export default function Card({ user }) {
       </div>
     </>
   );
-}
+});
