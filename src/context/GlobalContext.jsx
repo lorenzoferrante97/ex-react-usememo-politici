@@ -6,7 +6,6 @@ const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
-  const [searchRes, setSearchRes] = useState([]);
   const [handleSearch, setHandleSearch] = useState('');
 
   // fetch users
@@ -21,12 +20,25 @@ const GlobalProvider = ({ children }) => {
   };
 
   // setting users
-  const settingUsers = (users) => setUsers(users.users);
+  const settingUsers = (users) => {
+    setUsers(users.users);
+  };
 
   // handle search
   const getSearchInput = (e) => setHandleSearch(e.target.value);
 
-  const value = { getUsers, setUsers, settingUsers, getSearchInput, users, searchRes, handleSearch };
+  // filter users
+  const filterUsers = (handleSearch, users) => {
+    if (handleSearch == '' || handleSearch.length == 0) {
+      return users;
+    } else {
+      const filteredUsers = users.filter((user) => user.firstName.toLowerCase().includes(handleSearch) || user.university.toLowerCase().includes(handleSearch));
+
+      return filteredUsers;
+    }
+  };
+
+  const value = { getUsers, setUsers, settingUsers, getSearchInput, filterUsers, users, handleSearch };
 
   return <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>;
 };

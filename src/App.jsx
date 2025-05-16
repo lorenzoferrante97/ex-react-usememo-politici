@@ -1,10 +1,10 @@
 // start code
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useGlobalContext } from './context/GlobalContext';
 import Card from './components/Card';
 
 function App() {
-  const { getUsers, users, settingUsers, getSearchInput, handleSearch } = useGlobalContext();
+  const { getUsers, users, settingUsers, getSearchInput, handleSearch, filterUsers } = useGlobalContext();
 
   useEffect(() => {
     (async () => {
@@ -17,18 +17,28 @@ function App() {
     })();
   }, []);
 
+  const memoUsers = useMemo(() => filterUsers(handleSearch, users), [users, handleSearch]);
+
   return (
     <>
       <main>
         <h1>Lista Utenti</h1>
         <div className="input-box">
           <h2>Ricerca Utente</h2>
-          <input value={handleSearch} onChange={(e) => getSearchInput(e)} name="search" type="text" placeholder="Franco" />
+          <p>Cerca per nome o università</p>
+          <input
+            value={handleSearch}
+            onChange={(e) => {
+              getSearchInput(e);
+            }}
+            name="search"
+            type="text"
+            placeholder="Franco"
+          />
         </div>
         <div>
           <ul>
-            {console.log(users)}
-            {users.map((user) => {
+            {memoUsers.map((user) => {
               return (
                 <li key={user.id}>
                   <Card user={user} />
